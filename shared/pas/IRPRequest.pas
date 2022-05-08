@@ -636,7 +636,7 @@ end;
 Function TDeviceControlRequest.GetColumnValue(AColumnType:ERequestListModelColumnType; Var AResult:WideString):Boolean;
 begin
 Result := True;
-If (MajorFunction = 15) And (Cardinal(Args.Other.Arg3) = 3) Then
+If (MajorFunction = 15) And (MinorFunction <> 0) Then
   begin
   Case AColumnType Of
     rlmctArg3 : AResult := 'TDI_REQUEST';
@@ -678,10 +678,9 @@ end;
 
 Function TDeviceControlRequest.GetColumnName(AColumnType:ERequestListModelColumnType):WideString;
 begin
-If (MajorFunction = 15) And (Cardinal(Args.Other.Arg3) = 3) Then
+If (MajorFunction = 15) And (MinorFunction <> 0) Then
   begin
   Case AColumnType Of
-    rlmctArg3 : Result := 'IOCTL';
     rlmctMinorFunction : Result := 'TDI Type';
     Else Result := Inherited GetColumnName(AColumnType);
     end;
